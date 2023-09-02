@@ -1,0 +1,296 @@
+import java.time.LocalDate;
+
+
+class Flight {
+    private int noOfPersons;
+    private String classType;
+    private int rates;
+    private LocalDate from;
+    private LocalDate to;
+    private String triptype;
+
+    public Flight(int noOfPersons, int rates, LocalDate from, LocalDate to, String triptype) {
+        this.noOfPersons = noOfPersons;
+        this.rates = rates;
+        this.from = from;
+        this.to = to;
+        this.triptype = triptype;
+    }
+
+    
+    public int getNoOfPersons() {
+        return noOfPersons;
+    }
+
+    public void setNoOfPersons(int noOfPersons) {
+        this.noOfPersons = noOfPersons;
+    }
+
+    public String getClassType() {
+        return classType;
+    }
+
+    public void setClassType(String classType) {
+        this.classType = classType;
+    }
+
+    public int getRates() {
+        return rates;
+    }
+
+    public void setRates(int rates) {
+        this.rates = rates;
+    }
+
+    public LocalDate getFrom() {
+        return from;
+    }
+
+    public void setFrom(LocalDate from) {
+        this.from = from;
+    }
+
+    public LocalDate getTo() {
+        return to;
+    }
+
+    public void setTo(LocalDate to) {
+        this.to = to;
+    }
+
+    public String getTriptype() {
+        return triptype;
+    }
+
+    public void setTriptype(String triptype) {
+        this.triptype = triptype;
+    }
+}
+
+
+class Hotel {
+    private int noOfPersons;
+    private String roomType;
+    private int rates;
+    private String occupancy;
+    private LocalDate fromdate;
+    private LocalDate todate;
+
+    public Hotel(int noOfPersons, String roomType, int rates, String occupancy, LocalDate fromdate, LocalDate todate) {
+        this.noOfPersons = noOfPersons;
+        this.roomType = roomType;
+        this.rates = rates;
+        this.occupancy = occupancy;
+        this.fromdate = fromdate;
+        this.todate = todate;
+    }
+
+    
+    public int getNoOfPersons() {
+        return noOfPersons;
+    }
+
+    public void setNoOfPersons(int noOfPersons) {
+        this.noOfPersons = noOfPersons;
+    }
+
+    public String getRoomType() {
+        return roomType;
+    }
+
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
+    }
+
+    public int getRates() {
+        return rates;
+    }
+
+    public void setRates(int rates) {
+        this.rates = rates;
+    }
+
+    public String getOccupancy() {
+        return occupancy;
+    }
+
+    public void setOccupancy(String occupancy) {
+        this.occupancy = occupancy;
+    }
+
+    public LocalDate getFromdate() {
+        return fromdate;
+    }
+
+    public void setFromdate(LocalDate fromdate) {
+        this.fromdate = fromdate;
+    }
+
+    public LocalDate getTodate() {
+        return todate;
+    }
+
+    public void setTodate(LocalDate todate) {
+        this.todate = todate;
+    }
+}
+
+
+class Train {
+    private int noOfPersons;
+    private String berth;
+    private int rates;
+    private LocalDate date;
+
+    public Train(int noOfPersons, int rates, String berth, LocalDate date) {
+        this.noOfPersons = noOfPersons;
+        this.berth = berth;
+        this.rates = rates;
+        this.date = date;
+    }
+
+    
+    public int getNoOfPersons() {
+        return noOfPersons;
+    }
+
+    public void setNoOfPersons(int noOfPersons) {
+        this.noOfPersons = noOfPersons;
+    }
+
+    public String getBerth() {
+        return berth;
+    }
+
+    public void setBerth(String berth) {
+        this.berth = berth;
+    }
+
+    public int getRates() {
+        return rates;
+    }
+
+    public void setRates(int rates) {
+        this.rates = rates;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+}
+
+
+class Bus {
+    private int noOfPersons;
+    private String busType;
+    private int rates;
+    private LocalDate date;
+
+    public Bus(int noOfPersons, int rates, String busType, LocalDate date) {
+        this.noOfPersons = noOfPersons;
+        this.busType = busType;
+        this.rates = rates;
+        this.date = date;
+    }
+
+    
+    public int getNoOfPersons() {
+        return noOfPersons;
+    }
+
+    public void setNoOfPersons(int noOfPersons) {
+        this.noOfPersons = noOfPersons;
+    }
+
+    public String getBusType() {
+        return busType;
+    }
+
+    public void setBusType(String busType) {
+        this.busType = busType;
+    }
+
+    public int getRates() {
+        return rates;
+    }
+
+    public void setRates(int rates) {
+        this.rates = rates;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+}
+
+
+class Booking {
+    public double booking(int noOfPersons, int rates) {
+        return noOfPersons * rates;
+    }
+}
+
+
+class FareCalculator extends Booking {
+    public double book(Hotel hotel) {
+        if (hotel.getFromdate().isBefore(hotel.getTodate())) {
+            if (hotel.getOccupancy().equals("Single") && hotel.getNoOfPersons() == 1) {
+                return super.booking(hotel.getNoOfPersons(), hotel.getRates());
+            } else if (hotel.getOccupancy().equals("Double") && hotel.getNoOfPersons() == 2) {
+                return super.booking(hotel.getNoOfPersons(), hotel.getRates());
+            } else if (hotel.getOccupancy().equals("Triple") && hotel.getNoOfPersons() == 3) {
+                return super.booking(hotel.getNoOfPersons(), hotel.getRates() * 2);
+            }
+        }
+        return -1; 
+    }
+
+    public double book(Flight flight) {
+        if (flight.getTriptype().equals("Round")) {
+            if (flight.getFrom().isBefore(flight.getTo())) {
+                return super.booking(flight.getNoOfPersons(), flight.getRates() * 2);
+            }
+        } else if (flight.getTriptype().equals("OneWay")) {
+            return super.booking(flight.getNoOfPersons(), flight.getRates());
+        }
+        return -1; 
+    }
+
+    public double book(Train train) {
+        return super.booking(train.getNoOfPersons(), train.getRates());
+    }
+
+    public double book(Bus bus) {
+        return super.booking(bus.getNoOfPersons(), bus.getRates());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        
+        Hotel hotel = new Hotel(1, "Single", 100, "Single", LocalDate.now(), LocalDate.now().plusDays(2));
+        Flight flight = new Flight(2, 200, LocalDate.now(), LocalDate.now().plusDays(7), "Round");
+        Train train = new Train(3, 50, "Sleeper", LocalDate.now());
+        Bus bus = new Bus(4, 30, "AC", LocalDate.now());
+
+    
+        FareCalculator calculator = new FareCalculator();
+        double hotelFare = calculator.book(hotel);
+        double flightFare = calculator.book(flight);
+        double trainFare = calculator.book(train);
+        double busFare = calculator.book(bus);
+
+        System.out.println("Hotel Fare: " + hotelFare);
+        System.out.println("Flight Fare: " + flightFare);
+        System.out.println("Train Fare: " + trainFare);
+        System.out.println("Bus Fare: " + busFare);
+    }
+}
